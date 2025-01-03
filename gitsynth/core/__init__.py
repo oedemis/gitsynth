@@ -1,0 +1,3 @@
+"""
+Core-Komponenten von GitSynth
+""" 

@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "gitsynth"
+version = "0.1.0"
+description = "Ein intelligentes CLI-Tool für Git-Workflows"
+authors = ["Osman Ödemis <osman.oedemis@cloud37.io>"]
+readme = "README.md"
+packages = [{include = "gitsynth"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+langchain = "^0.3.12"
+langchain-core = "^0.3.25"
+langgraph = "^0.2.59"
+typer = "^0.15.1"
+gitpython = "^3.1.43"
+rich = "^13.9.4"
+chromadb = "^0.5.23"
+langchain-community = "^0.3.12"
+sentence-transformers = "^3.3.1"
+langchain-huggingface = "^0.1.2"
+numpy = "^1.26.4"
+langchain-ollama = "^0.2.0"
+ollama = "^0.4.4"
+langsmith = "^0.2.4"
+python-dotenv = "^1.0.1"
+unidiff = "^0.7.5"
+graphviz = "^0.20.3"
+
+[tool.poetry.scripts]
+gitsynth = "gitsynth.cli:app"
+watch-tests = "scripts.watch_tests:main"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+pytest-cov = "^4.1.0"
+pytest-mock = "^3.12.0"
+pytest-sugar = "^1.0.0"
+pytest-html = "^4.1.1"
+pytest-xdist = "^3.5.0"
+pytest-reportlog = "^0.4.0"
+livereload = "^2.6.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

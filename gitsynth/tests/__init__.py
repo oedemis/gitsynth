@@ -1,0 +1,3 @@
+"""
+Test-Suite für GitSynth
+""" 
