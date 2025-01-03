@@ -1,29 +1,26 @@
 # GitSynth 🚀
 
-rm -rf .venv
-poetry env use python3.11
-
-Ein intelligentes CLI-Tool für automatisierte Git-Commits, Dokumentation und Changelog-Management mit LLM-Unterstützung.
+An intelligent CLI tool for automated Git commits, documentation, and changelog management with LLM support.
 
 ## Features 🎯
 
 ### Smart Commit Messages
-- Automatische Erkennung von Commit-Typen basierend auf https://www.conventionalcommits.org/en/v1.0.0/
-- Kontextbewusste Commit-Beschreibungen
-- Git-History-basierte Vorschläge
+- Automatic detection of commit types based on https://www.conventionalcommits.org/en/v1.0.0/
+- Context-aware commit descriptions
+- Git history-based suggestions
 
-### Changelog-Management
-- Automatische CHANGELOG.md Generierung
-- Kategorisierte Änderungen
-- Verknüpfung mit Commits
+### Changelog Management
+- Automatic CHANGELOG.md generation
+- Categorized changes
+- Commit linking
 
 ## Tech Stack 🛠
 
 ### Core
-- LangChain: LLM Integration und Tools
-- LangGraph: Agenten-Orchestrierung
-- Ollama: Lokales LLM (Mistral oder Llama2)
-- Chroma: Vektorstore für Embeddings
+- LangChain: LLM Integration and Tools
+- LangGraph: Agent Orchestration
+- Ollama: Local LLM (Mistral or Llama2)
+- Chroma: Vector store for Embeddings
 - HuggingFace Embeddings (BAAI/bge-small-en-v1.5)
 
 ### Development
@@ -33,116 +30,115 @@ Ein intelligentes CLI-Tool für automatisierte Git-Commits, Dokumentation und Ch
 - Rich: Terminal Formatting
 
 ## Quick Start 🏃‍♂️
-Das Skirpt core/commit_agent.py ist der Kern.
-Leider hat tools mit Ollama nicht funktioniert, es ist also ein Chain.
-Für eine detaillierte Beschreibung , siehe [Domain Documentation](docs/domain.md).
+
+The core/commit_agent.py script is the heart of the application.
+Unfortunately, tools with Ollama didn't work, so it's a Chain.
+For a detailed description, see [Domain Documentation](docs/domain.md).
 
 ## Installation
 
-### Voraussetzungen
+### Prerequisites
 - Python 3.11+
 - Poetry
 - Git
-- Ollama (für lokales LLM)
+- Ollama (for local LLM)
 
-### Entwicklungs-Setup
+### Development Setup
 
-1. **Repository klonen**:
+1. **Clone repository**:
    ```bash
    git clone https://github.com/yourusername/gitsynth.git
    cd gitsynth
    ```
 
-2. **Python-Version setzen**:
+2. **Set Python version**:
    ```bash
-   # Wenn du Conda verwendest, erst deaktivieren
+   # If using Conda, deactivate first
    conda deactivate
 
-   # Python 3.11 für Poetry setzen
+   # Set Python 3.11 for Poetry
    poetry env use python3.11
    ```
 
-3. **Dependencies installieren**:
+3. **Install dependencies**:
    ```bash
    poetry install
    ```
 
-4. **Entwicklungsumgebung aktivieren**:
+4. **Activate development environment**:
    ```bash
    poetry shell
    ```
-5. **Beliebiege Repo wechseln und änderungen stagen**:
+
+5. **Switch to any repo and stage changes**:
    ```bash
    git init
-   git add . 
+   git add .
    ```
 
-6. **Gitsynth starten**:
+6. **Start Gitsynth**:
    ```bash
    gitsynth agent commit
    ```
 
+### Usage
 
-### Verwendung
-
-Nach der Aktivierung der Poetry-Shell:
+After activating the Poetry shell:
 
 ```bash
-# Commit erstellen mit Changelog
+# Create commit with changelog
 gitsynth agent commit
 
-# Änderungen analysieren
+# Analyze changes
 gitsynth analyze
 
-# Debuggen analysieren
-gitsynth debug oder gitsynth agent commit --debug
+# Debug analysis
+gitsynth debug or gitsynth agent commit --debug
 
-# TODO: Hilfe anzeigen
+# TODO: Show help
 gitsynth --help
 ```
 
 ## Features
 
-- 🤖 KI-gestützte Commit-Analyse
-- 📝 Intelligente Commit-Messages
-- 🎯 Conventional Commits Support
-- 🎨 Schöne Terminal-Ausgaben
-
+- 🤖 AI-powered commit analysis
+- 📝 Intelligent commit messages
+- 🎯 Conventional Commits support
+- 🎨 Beautiful terminal output
 
 ## Troubleshooting
 
-- **"Command not found: poetry"**: Poetry neu installieren oder PATH setzen
-- **Conda Konflikte**: `conda deactivate` vor Poetry-Nutzung
-- **Ollama-Fehler**: Sicherstellen dass Ollama läuft (`ollama run llama2`)
+- **"Command not found: poetry"**: Reinstall Poetry or set PATH
+- **Conda conflicts**: Run `conda deactivate` before using Poetry
+- **Ollama errors**: Ensure Ollama is running (`ollama run llama3.2`)
 
-## Architektur 🏗
+## Architecture 🏗
 
-### Agenten
-1. **CommitAgent**: Analysiert Changes & generiert Commits
+### Agents
+1. **CommitAgent**: Analyzes changes & generates commits
 
-
-## 📋 Verwendung
+## 📋 Usage
 
 ```bash
-# Siehe den Flow
+# See the flow
 gitsynth agent commit
 ```
 
 ## Roadmap 🗺
 
-- [✅] Basic CLI Setup mit Poetry & Typer
-- [✅] Git Integration & Diff-Analyse
-- [✅ ❌] LangChain/LangGraph Agent-System
-- [✅ ] Chroma Vector Store Integration
-- [✅ ] Ollama LLM Integration
-- [✅ ] Erste Commit-Message-Generation
-- [✅ ] Dokumentations-Synchronisation
-- [ ❌] Changelog-Management
+- [✅] Basic CLI Setup with Poetry & Typer
+- [✅] Git Integration & Diff Analysis
+- [✅ ❌] LangChain/LangGraph Agent System
+- [✅] Chroma Vector Store Integration
+- [✅] Ollama LLM Integration
+- [✅] Initial Commit Message Generation
+- [✅] Documentation Synchronization
+- [❌] Changelog Management
 
 ## Contributing 🤝
 
-Beiträge sind willkommen! 
+Contributions are welcome!
 
-## Lizenz 📄
+## License 📄
 
 MIT

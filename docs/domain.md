@@ -1,10 +1,10 @@
 # GitSynth Domain Documentation
 
-## CommitAgent - Intelligenter Git Commit Assistent
+## CommitAgent - Intelligent Git Commit Assistant
 
-Der CommitAgent ist das Herzstück von GitSynth und steuert den gesamten Workflow für die Erstellung von qualitativ hochwertigen Git Commits. Er nutzt einen gerichteten Graphen, um die verschiedenen Verarbeitungsschritte zu koordinieren. Leider funktioniert tools mit Ollama nicht, es ist also ein Chain :(
+The CommitAgent is the heart of GitSynth and controls the entire workflow for creating high-quality Git commits. It uses a directed graph to coordinate the various processing steps. Unfortunately, tools with Ollama don't work, so it's a Chain :(
 
-### 🔄 Workflow-Übersicht
+### 🔄 Workflow Overview
 
 ```mermaid
 graph TD
@@ -12,112 +12,110 @@ graph TD
     get_diff --> analyze
     analyze --> generate_message
     generate_message --> check_quality
-    check_quality -->|Qualität nicht ausreichend| improve_message
+    check_quality -->|Quality insufficient| improve_message
     improve_message --> check_quality
-    check_quality -->|Qualität OK| generate_changelog
+    check_quality -->|Quality OK| generate_changelog
     generate_changelog --> __end__
 ```
 
-### 📝 Workflow-Schritte im Detail
+### 📝 Workflow Steps in Detail
 
 1. **Get Diff** (`get_diff`)
-   - Liest die staged Changes aus Git
-   - Extrahiert die Unterschiede zwischen Arbeitsverzeichnis und Stage
-   - Output: Roher Git Diff als Text
+   - Reads staged changes from Git
+   - Extracts differences between working directory and stage
+   - Output: Raw Git diff as text
 
 2. **Analyze** (`analyze`)
-   - Analysiert die Änderungen im Detail
-   - Erstellt strukturierte `GitDiffAnalysis`
-   - Untersucht jede geänderte Datei
-   - Bestimmt den Änderungstyp und Zweck
-   - Output: Detaillierte Analyse-Struktur
+   - Analyzes changes in detail
+   - Creates structured `GitDiffAnalysis`
+   - Examines each changed file
+   - Determines change type and purpose
+   - Output: Detailed analysis structure
 
 3. **Generate Message** (`generate_message`)
-   - Erstellt eine Conventional Commit Message
-   - Basiert auf der vorherigen Analyse
-   - Folgt strengen Formatierungsregeln
-   - Output: Formatierte Commit-Nachricht
+   - Creates a Conventional Commit message
+   - Based on previous analysis
+   - Follows strict formatting rules
+   - Output: Formatted commit message
 
 4. **Check Quality** (`check_quality`)
-   - Prüft die Qualität der Commit Message
-   - Validiert gegen Conventional Commits Standard
-   - Entscheidet über weitere Verarbeitung
-   - Output: Qualitätsbewertung & nächster Schritt
+   - Checks commit message quality
+   - Validates against Conventional Commits standard
+   - Decides on further processing
+   - Output: Quality assessment & next step
 
 5. **Improve Message** (`improve_message`)
-   - Verbessert die Commit Message bei Bedarf
-   - Wird nur bei nicht ausreichender Qualität ausgeführt
-   - Mehrere Verbesserungsversuche möglich
-   - Output: Verbesserte Commit-Nachricht
+   - Improves commit message if needed
+   - Only executed if quality is insufficient
+   - Multiple improvement attempts possible
+   - Output: Improved commit message
 
 6. **Generate Changelog** (`generate_changelog`)
-   - Erstellt einen formatierten Changelog-Eintrag
-   - Dokumentiert alle wichtigen Änderungen
-   - Speichert in CHANGELOG_AGENT.md
-   - Output: Markdown-formatierter Changelog
+   - Creates a formatted changelog entry
+   - Documents all important changes
+   - Saves to CHANGELOG_AGENT.md
+   - Output: Markdown-formatted changelog
 
-### 🔧 Technische Komponenten
+### 🔧 Technical Components
 
-#### CommitAgent Klasse
+#### CommitAgent Class
 ```python
 class CommitAgent:
     """
-    Hauptkoordinator für den Git Commit Workflow
-    - Erstellt und verwaltet den Workflow-Graphen
-    - Führt die Verarbeitung aus
-    - Bietet Visualisierung des Workflows
+    Main coordinator for the Git commit workflow
+    - Creates and manages the workflow graph
+    - Executes processing
+    - Provides workflow visualization
     """
 ```
 
-#### Wichtige State-Objekte
+#### Important State Objects
 
 1. **GitFileChange**
-   - Detaillierte Analyse einer Dateiänderung
-   - Enthält Path, Change-Type, Lines Changed etc.
+   - Detailed analysis of a file change
+   - Contains Path, Change-Type, Lines Changed etc.
 
 2. **GitDiffAnalysis**
-   - Gesamtanalyse aller Änderungen
-   - Enthält Summary, Change-Type, Breaking Changes
+   - Complete analysis of all changes
+   - Contains Summary, Change-Type, Breaking Changes
 
 3. **ConventionalCommit**
-   - Strukturierte Commit-Nachricht
-   - Validiert gegen Conventional Commits Standard
+   - Structured commit message
+   - Validated against Conventional Commits standard
 
 4. **AgentState**
-   - Aktueller Zustand des Workflows
-   - Speichert Messages, Versuche, Analysen etc.
+   - Current workflow state
+   - Stores Messages, Attempts, Analyses etc.
 
-### 🔍 Qualitätssicherung
+### 🔍 Quality Assurance
 
-Der Agent implementiert mehrere Qualitätssicherungsmechanismen:
+The agent implements several quality assurance mechanisms:
 
-- **Iterative Verbesserung**: Bis zu 5 Versuche zur Message-Optimierung
-- **Conventional Commits**: Strikte Einhaltung des Standards
-- **Breaking Changes**: Automatische Erkennung und Markierung
-- **Changelog Generation**: Automatische Dokumentation aller Änderungen
+- **Iterative Improvement**: Up to 5 attempts for message optimization
+- **Conventional Commits**: Strict adherence to the standard
+- **Breaking Changes**: Automatic detection and marking
+- **Changelog Generation**: Automatic documentation of all changes
 
+### 💾 Persistence
 
-### 💾 Persistenz
+- Automatic changelog generation in CHANGELOG_AGENT.md
+- Storage of all processing steps in state
+- History of all improvement attempts
 
-- Automatische Changelog-Generierung in CHANGELOG_AGENT.md
-- Speicherung aller Verarbeitungsschritte im State
-- Historie aller Verbesserungsversuche
-
-
-### 📝 Verwendung
+### 📝 Usage
 
 ```python
-# Beispiel zur Verwendung des CommitAgent
+# Example of using CommitAgent
 agent = CommitAgent()
 
-# Workflow ausführen
+# Execute workflow
 result = agent.run(messages=[])
 
-# Workflow visualisieren
+# Visualize workflow
 agent.visualize_workflow()
 ```
 
-### 📚 Technische Implementierungsdetails
+### 📚 Technical Implementation Details
 
 #### 🔍 Prompt-Engineering & LLM-Integration
 
@@ -344,14 +342,14 @@ def generate_changelog(state: AgentState) -> AgentState:
 """
 ```
 
-### 🎯 Best Practices & Empfehlungen
+### 🎯 Best Practices & Recommendations
 
-1. **Commit Message Struktur**
-   - Typ muss einem der definierten Typen entsprechen
-   - Scope sollte den Hauptbereich der Änderung reflektieren
-   - Description sollte präzise und aussagekräftig sein
+1. **Commit Message Structure**
+   - Type must match one of the defined types
+   - Scope should reflect the main area of change
+   - Description should be precise and meaningful
 
 2. **Breaking Changes**
-   - Müssen mit `!` markiert werden
-   - Benötigen detaillierte Beschreibung im Body
-   - Sollten im Changelog hervorgehoben werden
+   - Must be marked with `!`
+   - Require detailed description in body
+   - Should be highlighted in changelog
